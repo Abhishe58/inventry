@@ -65,17 +65,13 @@ main {
 .productContainer {
   position: relative;
   height: calc(100vh - 116px);
-  overflow-y: scroll;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 10px;
 }
-.productContainer::-webkit-scrollbar {
-  display: none;
-}
 .productBox {
   position: relative;
-  width: 100%;
+  width: fit-content;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

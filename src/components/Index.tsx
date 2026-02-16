@@ -19,7 +19,7 @@ export default function Index() {
   const submitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://127.0.0.1:5000/login", {
+      const res = await fetch("https://inventryser.onrender.com/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginForm),

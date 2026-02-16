@@ -43,7 +43,7 @@ export default function Additems() {
   const subProduct = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://127.0.0.1:5000/addproduct", {
+      const res = await fetch("https://inventryser.onrender.com/addproduct", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

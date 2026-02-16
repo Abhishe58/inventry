@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Index() {
   const [signupForm, setsignupForm] = useState({
@@ -9,6 +9,7 @@ export default function Index() {
   });
 
   const [respo, setRespo] = useState("");
+  const navi = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -18,12 +19,15 @@ export default function Index() {
   const submitSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://127.0.0.1:5000/signup", {
+      const res = await fetch("https://inventryser.onrender.com/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(signupForm),
       });
       const data = await res.json();
+      if (res.ok) {
+        navi("/");
+      }
       setRespo(data.message);
     } catch (error) {
       console.log(error);
@@ -94,8 +98,8 @@ export default function Index() {
               Login
             </Link>
           </p>
+          <p>{respo}</p>
         </div>
-        <p>{respo}</p>
       </div>
     </>
   );

@@ -43,7 +43,9 @@ export default function Home() {
       return;
     }
     try {
-      const res = await fetch(`http://127.0.0.1:5000/product/${userId}`);
+      const res = await fetch(
+        `https://inventryser.onrender.com/product/${userId}`,
+      );
       const data = await res.json();
       setProduct(data);
     } catch (error) {}
@@ -66,11 +68,14 @@ export default function Home() {
 
   const addStocks = async (id: number) => {
     try {
-      const res = await fetch(`http://127.0.0.1:5000/stocksupdate/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stocksto: stocks }),
-      });
+      const res = await fetch(
+        `https://inventryser.onrender.com/stocksupdate/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ stocksto: stocks }),
+        },
+      );
       const data = await res.json();
       if (res.ok) {
         // Update the UI: Find the product in your list and update its stock count
@@ -89,11 +94,14 @@ export default function Home() {
 
   const sellstockks = async (id: number) => {
     try {
-      const res = await fetch(`http://127.0.0.1:5000/stockssell/${id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ stockssell: sellstocks }),
-      });
+      const res = await fetch(
+        `https://inventryser.onrender.com/stockssell/${id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ stockssell: sellstocks }),
+        },
+      );
       const data = await res.json();
       if (res.ok) {
         setProduct((prev) =>
@@ -112,9 +120,12 @@ export default function Home() {
 
   const deleteProduct = async (id: number) => {
     try {
-      const res = await fetch(`http://127.0.0.1:5000/deletePro/${id}`, {
-        method: "DELETE",
-      });
+      const res = await fetch(
+        `https://inventryser.onrender.com/deletePro/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
       if (res.ok) {
         setProduct((prev) => prev.filter((items) => items._id !== id));
       }
