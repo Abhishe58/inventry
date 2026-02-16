@@ -3,7 +3,7 @@ import "./Home.css";
 import { Link } from "react-router-dom";
 
 type Product = {
-  _id: number;
+  _id: string;
   product: string;
   brand: string;
   category: string;
@@ -66,7 +66,7 @@ export default function Home() {
     }
   }, []);
 
-  const addStocks = async (id: number) => {
+  const addStocks = async (id: string) => {
     try {
       const res = await fetch(
         `https://inventryser.onrender.com/stocksupdate/${id}`,
@@ -92,7 +92,7 @@ export default function Home() {
     }
   };
 
-  const sellstockks = async (id: number) => {
+  const sellstockks = async (id: string) => {
     try {
       const res = await fetch(
         `https://inventryser.onrender.com/stockssell/${id}`,
@@ -118,7 +118,7 @@ export default function Home() {
     }
   };
 
-  const deleteProduct = async (id: number) => {
+  const deleteProduct = async (id: string) => {
     try {
       const res = await fetch(
         `https://inventryser.onrender.com/deletePro/${id}`,
