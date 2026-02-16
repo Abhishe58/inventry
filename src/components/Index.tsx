@@ -28,7 +28,7 @@ export default function Index() {
       setRespo(data.message);
       if (res.ok) {
         localStorage.setItem("name", data.name);
-        localStorage.setItem("userid", data.userId);
+        localStorage.setItem("userId", data.userId);
         navia("/home");
       }
     } catch (error) {
