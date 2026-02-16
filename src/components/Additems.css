@@ -1,0 +1,28 @@
+.productForm,
+.productFormbox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.productformselect {
+  padding: 10px 10px;
+  border: 10px;
+  background-color: hsl(0deg, 0%, 95%);
+  border: none;
+  outline: none;
+  border-radius: 10px;
+}
+.loginButb {
+  padding: 10px 10px;
+  border-radius: 10px;
+  background-color: white;
+  color: black;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: 1s;
+}
+.loginButb:active {
+  transform: scale(1.1);
+}

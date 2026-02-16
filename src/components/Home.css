@@ -1,0 +1,196 @@
+header {
+  position: relative;
+  background-color: transparent;
+  backdrop-filter: blur(15px);
+  padding: 10px 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1;
+}
+.headerBox {
+  position: relative;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+main {
+  position: relative;
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.mainDasContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.desBoxa {
+  position: relative;
+  display: flex;
+  gap: 10px;
+}
+.desp {
+  padding: 1.3rem;
+  background-color: royalblue;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.linkdesp {
+  text-decoration: none;
+  color: white;
+}
+.headerBut {
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 104px;
+  background-color: royalblue;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: 1s;
+  white-space: nowrap;
+}
+.mainContainera {
+  position: relative;
+  width: 100%;
+}
+.productContainer {
+  position: relative;
+  height: calc(100vh - 116px);
+  overflow-y: scroll;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 10px;
+}
+.productContainer::-webkit-scrollbar {
+  display: none;
+}
+.productBox {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 10px;
+  padding: 10px;
+  background-color: rgb(229, 229, 229);
+  border-radius: 10px;
+}
+.productImg {
+  height: 300px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.addstockform {
+  position: relative;
+  width: 100%;
+  display: flex;
+  gap: 3px;
+}
+.addstockInput {
+  padding: 5px 5px;
+  width: 70%;
+  background-color: hsl(0deg, 0%, 97%);
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+.addstockBut {
+  white-space: nowrap;
+  padding: 5px 5px;
+  background-color: royalblue;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  width: 40%;
+}
+.productdeleteBut {
+  padding: 10px 10px;
+  border-radius: 10px;
+  background-color: red;
+  color: white;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  transition: 1s;
+}
+.productdeleteBut:active {
+  transform: scale(1.1);
+}
+.mainContainerb {
+  position: relative;
+  width: 30%;
+}
+@media (max-width: 1250px) {
+  .productContainer {
+    grid-template-columns: repeat(auto-fit, minmax(275px, 1fr));
+  }
+}
+@media (max-width: 1250px) {
+  .productContainer {
+    grid-template-columns: repeat(auto-fit, minmax(249px, 1fr));
+  }
+}
+@media (max-width: 1232px) {
+  .productContainer {
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+}
+@media (max-width: 989px) {
+  .mainContainera {
+    width: 100%;
+  }
+  .productContainer {
+    grid-template-columns: repeat(auto-fit, minmax(305px, 1fr));
+  }
+  .mainContainerb {
+    position: fixed;
+    width: 80%;
+    background: transparent;
+    backdrop-filter: blur(15px);
+    right: 10px;
+    top: 90px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 6px 15px rgba(225, 225, 225, 0.4);
+    z-index: 999;
+  }
+  .productFormContainer {
+    top: 90px;
+  }
+}
+@media (max-width: 888px) {
+  header {
+    flex-wrap: wrap;
+  }
+  .headerBox {
+    flex-wrap: wrap;
+  }
+  .productContainer {
+    overflow-y: visible;
+  }
+  h1,
+  h2 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .productContainer {
+    display: flex;
+    flex-direction: column;
+  }
+  .desBoxa,
+  .desp {
+    width: 100%;
+  }
+}

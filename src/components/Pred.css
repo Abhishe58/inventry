@@ -1,0 +1,66 @@
+.chatbotContainerxc {
+  position: relative;
+  height: calc(100vh - 115px);
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.moreChatbotContainer {
+  position: relative;
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.chatbotForm {
+  position: relative;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 50%;
+}
+.chatbotformBox {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.chatbotinput {
+  padding: 10px 10px;
+  background-color: hsl(0deg, 0%, 95%);
+  border-radius: 10px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  width: 100%;
+}
+.resultchatbotContainer {
+  position: relative;
+  padding: 1.5rem;
+  border-radius: 15px;
+  box-shadow: inset 0px 6px 15px rgba(225, 225, 225, 0.3);
+  width: 50%;
+}
+.label {
+  font-size: 20px;
+  font-weight: 600;
+}
+.unites {
+  font-size: 22px;
+  font-weight: 600;
+  color: royalblue;
+}
+.navLink {
+  color: royalblue;
+  text-decoration: none;
+}
+@media (max-width: 640px) {
+  .moreChatbotContainer {
+    flex-direction: column;
+  }
+  .chatbotForm,
+  .resultchatbotContainer {
+    width: 100%;
+  }
+}
