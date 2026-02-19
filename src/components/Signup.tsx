@@ -77,7 +77,7 @@ export default function Index() {
               />
             </div>
             <div className="loginformBox">
-              <label htmlFor="password">Passwors</label>
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
                 name="password"
