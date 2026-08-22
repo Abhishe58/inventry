@@ -17,7 +17,7 @@ export default function Home() {
   const userId = localStorage.getItem("userId");
 
   const [product, setProduct] = useState<Product[]>([]);
-  const [stocks, setStocks] = useState<Record<string, number>>({});
+  const [stocks, setStocks] = useState<Record<string, number | "">>({});
   const [sellstocks, setSellstocks] = useState<Record<string, number>>({});
   const [message, setMessage] = useState("");
 
@@ -67,26 +67,67 @@ export default function Home() {
   }, []);
 
   const addStocks = async (id: string) => {
+    const quantity = stocks[id];
+
+    // Prevent NaN, empty value, zero and negative values
+    if (
+      quantity === "" ||
+      typeof quantity !== "number" ||
+      !Number.isFinite(quantity)
+    ) {
+      console.log("Invalid stock quantity:", quantity);
+      return;
+    }
+
+    if (quantity <= 0) {
+      console.log("Stock must be greater than 0");
+      return;
+    }
+
     try {
+      console.log("Product ID:", id);
+      console.log("Stock quantity:", quantity);
+
       const res = await fetch(
         `https://inventryser.onrender.com/stocksupdate/${id}`,
         {
           method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ stocksto: stocks }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            stocksto: quantity,
+          }),
         },
       );
+
       const data = await res.json();
-      if (res.ok) {
-        // Update the UI: Find the product in your list and update its stock count
-        setProduct((prevProducts) =>
-          prevProducts.map((item) =>
-            item._id === id ? { ...item, stock: data.stock } : item,
-          ),
-        );
+
+      console.log("Backend response:", data);
+
+      if (!res.ok) {
+        console.error("Add stock failed:", data);
+        return;
       }
+
+      setProduct((prevProducts) =>
+        prevProducts.map((item) =>
+          item._id === id
+            ? {
+                ...item,
+                stock: data.stock,
+              }
+            : item,
+        ),
+      );
+
+      // Clear input
+      setStocks((prev) => ({
+        ...prev,
+        [id]: "",
+      }));
     } catch (error) {
-      console.log(error);
+      console.error("Add stock error:", error);
     }
   };
 
@@ -217,15 +258,17 @@ export default function Home() {
                       type="number"
                       className="addstockInput"
                       placeholder="Add Stocks"
-                      name="addstock"
                       min="1"
-                      value={stocks[items._id] || ""}
-                      onChange={(e) =>
+                      step="1"
+                      value={stocks[items._id] ?? ""}
+                      onChange={(e) => {
+                        const value = e.target.value;
+
                         setStocks((prev) => ({
                           ...prev,
-                          [items._id]: Number(e.target.value),
-                        }))
-                      }
+                          [items._id]: value === "" ? "" : Number(value),
+                        }));
+                      }}
                       required
                     />
 
