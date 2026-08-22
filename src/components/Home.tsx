@@ -18,7 +18,7 @@ export default function Home() {
 
   const [product, setProduct] = useState<Product[]>([]);
   const [stocks, setStocks] = useState<number>();
-  const [sellstocks, setSellstocks] = useState<number>();
+  const [sellstocks, setSellstocks] = useState<Record<string, number>>({});
   const [message, setMessage] = useState("");
 
   const productImagemap: { [key: string]: string } = {
@@ -111,7 +111,6 @@ export default function Home() {
               : item,
           ),
         );
-        setSellstocks(0);
       }
     } catch (error) {
       console.log(error);
@@ -227,18 +226,27 @@ export default function Home() {
                     </button>
                   </form>
                   <form
-                    onSubmit={() => sellstockks(items._id)}
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      sellstockks(items._id);
+                    }}
                     className="addstockform"
                   >
                     <input
                       type="number"
                       className="addstockInput"
                       placeholder="Sell Product"
-                      name="sellstock"
-                      onChange={(e) => setSellstocks(Number(e.target.value))}
-                      value={sellstocks}
+                      min="1"
+                      value={sellstocks[items._id] || ""}
+                      onChange={(e) =>
+                        setSellstocks((prev) => ({
+                          ...prev,
+                          [items._id]: Number(e.target.value),
+                        }))
+                      }
                       required
                     />
+
                     <button type="submit" className="addstockBut">
                       Sell Stocks
                     </button>
