@@ -73,14 +73,10 @@ export default function Home() {
     if (
       quantity === "" ||
       typeof quantity !== "number" ||
-      !Number.isFinite(quantity)
+      !Number.isFinite(quantity) ||
+      quantity <= 0
     ) {
-      console.log("Invalid stock quantity:", quantity);
-      return;
-    }
-
-    if (quantity <= 0) {
-      console.log("Stock must be greater than 0");
+      alert("Invalid stock quantity");
       return;
     }
 
@@ -107,6 +103,7 @@ export default function Home() {
 
       if (!res.ok) {
         console.error("Add stock failed:", data);
+        alert("Failed to add stock: " + (data.message || "Unknown error"));
         return;
       }
 
@@ -126,8 +123,10 @@ export default function Home() {
         ...prev,
         [id]: "",
       }));
+      alert("Stock added successfully!");
     } catch (error) {
       console.error("Add stock error:", error);
+      alert("Error adding stock");
     }
   };
 
@@ -141,7 +140,13 @@ export default function Home() {
       !Number.isFinite(quantity) ||
       quantity <= 0
     ) {
-      console.log("Invalid sell quantity:", quantity);
+      alert("Invalid sell quantity");
+      return;
+    }
+
+    const currentProduct = product.find((p) => p._id === id);
+    if (currentProduct && quantity > currentProduct.stock) {
+      alert("Cannot sell more than available stock!");
       return;
     }
 
@@ -168,9 +173,13 @@ export default function Home() {
           ...prev,
           [id]: "",
         }));
+        alert("Stock sold successfully!");
+      } else {
+        alert("Failed to sell stock: " + (data.message || "Unknown error"));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
+      alert("Error selling stock");
     }
   };
 
