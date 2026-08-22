@@ -18,7 +18,7 @@ export default function Home() {
 
   const [product, setProduct] = useState<Product[]>([]);
   const [stocks, setStocks] = useState<Record<string, number | "">>({});
-  const [sellstocks, setSellstocks] = useState<Record<string, number>>({});
+  const [sellstocks, setSellstocks] = useState<Record<string, number | "">>({});
   const [message, setMessage] = useState("");
 
   const productImagemap: { [key: string]: string } = {
@@ -132,13 +132,26 @@ export default function Home() {
   };
 
   const sellstockks = async (id: string) => {
+    const quantity = sellstocks[id];
+
+    if (
+      quantity === "" ||
+      quantity === undefined ||
+      typeof quantity !== "number" ||
+      !Number.isFinite(quantity) ||
+      quantity <= 0
+    ) {
+      console.log("Invalid sell quantity:", quantity);
+      return;
+    }
+
     try {
       const res = await fetch(
         `https://inventryser.onrender.com/stockssell/${id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ stockssell: sellstocks }),
+          body: JSON.stringify({ stockssell: quantity }),
         },
       );
       const data = await res.json();
@@ -150,6 +163,11 @@ export default function Home() {
               : item,
           ),
         );
+        // Clear input
+        setSellstocks((prev) => ({
+          ...prev,
+          [id]: "",
+        }));
       }
     } catch (error) {
       console.log(error);
@@ -288,13 +306,14 @@ export default function Home() {
                       className="addstockInput"
                       placeholder="Sell Product"
                       min="1"
-                      value={sellstocks[items._id] || ""}
-                      onChange={(e) =>
+                      value={sellstocks[items._id] ?? ""}
+                      onChange={(e) => {
+                        const value = e.target.value;
                         setSellstocks((prev) => ({
                           ...prev,
-                          [items._id]: Number(e.target.value),
-                        }))
-                      }
+                          [items._id]: value === "" ? "" : Number(value),
+                        }));
+                      }}
                       required
                     />
 
