@@ -17,7 +17,7 @@ export default function Home() {
   const userId = localStorage.getItem("userId");
 
   const [product, setProduct] = useState<Product[]>([]);
-  const [stocks, setStocks] = useState<number>();
+  const [stocks, setStocks] = useState<Record<string, number>>({});
   const [sellstocks, setSellstocks] = useState<Record<string, number>>({});
   const [message, setMessage] = useState("");
 
@@ -84,8 +84,6 @@ export default function Home() {
             item._id === id ? { ...item, stock: data.stock } : item,
           ),
         );
-
-        setStocks(0);
       }
     } catch (error) {
       console.log(error);
@@ -209,7 +207,10 @@ export default function Home() {
                   <p>Price: {items.price}</p>
                   <p>Sell Stocks: {items.selstocks}</p>
                   <form
-                    onSubmit={() => addStocks(items._id)}
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      addStocks(items._id);
+                    }}
                     className="addstockform"
                   >
                     <input
@@ -217,10 +218,17 @@ export default function Home() {
                       className="addstockInput"
                       placeholder="Add Stocks"
                       name="addstock"
-                      onChange={(e) => setStocks(Number(e.target.value))}
-                      value={stocks}
+                      min="1"
+                      value={stocks[items._id] || ""}
+                      onChange={(e) =>
+                        setStocks((prev) => ({
+                          ...prev,
+                          [items._id]: Number(e.target.value),
+                        }))
+                      }
                       required
                     />
+
                     <button type="submit" className="addstockBut">
                       Add Stock
                     </button>
